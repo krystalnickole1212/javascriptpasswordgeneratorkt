@@ -6,7 +6,7 @@ var promptUppercase
 var promptNumbers
 var promptSpecialcharacters
 
-var characterLength = getCharacterLength();
+var characterLength = 
 var choiceArray = [];
 var lowercaseArray = "abcdefghijklmnopqrstuvwxyz";
 var upperCaseArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -25,7 +25,55 @@ passwordText.value = password;
 function generatePassword() {
   console.log("The button was clicked!")
 
-
+  getCharacterLength();
+  function getCharacterLength() {
+    var choiceArray = [];
+    var characterLength = prompt("How many characters long would you like your password to be? (8-128 characters");
+  
+    console.log("character length prompt value: ", characterLength);
+  
+    // reassign the value back to the same variable
+    characterLength = parseInt(characterLength);
+  
+    console.log("character length as integer: ", characterLength);
+  
+    if (isNaN(characterLength)) {
+      console.log("NaN");
+    }
+  
+    if (characterLength < 8) {
+      console.log("less than 8");
+    }
+  
+    if (characterLength > 128) {
+      console.log("greater than 128");
+    }
+    return characterLength;
+  
+  }
+  
+  if (confirm("Would you like your password to include lowercase letters of the alphabet?")) {
+    choiceArray.concat(lowercaseArray);
+  }
+  if (confirm("Would you like your password to include uppercase letters of the alphabet?")) {
+    choiceArray.concat(upperCaseArray);
+  }
+  if (confirm("Would you like your password to include special characters?")) {
+    choiceArray.concat(specialCharactersArray);
+  }
+  if (confirm("Would you like your password to include numbers?")) {
+    choiceArray.concat(numberArray);
+  
+  }
+  console.log(choiceArray);
+  for (let i = 0;8 <= i && i <= 128; i++) {
+    password  += "The number is " + i + "<br>";
+    //random function on right side of loop
+  }
+  
+  
+  console.log(characterLength);
+  console.log(choiceArray);
 
 
 
@@ -57,54 +105,7 @@ function generatePassword() {
 
 }
 
-function getCharacterLength() {
-  var choiceArray = [];
-  var characterLength = prompt("How many characters long would you like your password to be? (8-128 characters");
 
-  console.log("character length prompt value: ", characterLength);
-
-  // reassign the value back to the same variable
-  characterLength = parseInt(characterLength);
-
-  console.log("character length as integer: ", characterLength);
-
-  if (isNaN(characterLength)) {
-    console.log("NaN");
-  }
-
-  if (characterLength < 8) {
-    console.log("less than 8");
-  }
-
-  if (characterLength > 128) {
-    console.log("greater than 128");
-  }
-  return characterLength;
-
-}
-
-if (confirm("Would you like your password to include lowercase letters of the alphabet?")) {
-  choiceArray.concat(lowercaseArray);
-}
-if (confirm("Would you like your password to include uppercase letters of the alphabet?")) {
-  choiceArray.concat(upperCaseArray);
-}
-if (confirm("Would you like your password to include special characters?")) {
-  choiceArray.concat(specialCharactersArray);
-}
-if (confirm("Would you like your password to include numbers?")) {
-  choiceArray.concat(numberArray);
-
-}
-console.log(choiceArray);
-for (let i = 0;8 <= i && i <= 128; i++) {
-  password  += "The number is " + i + "<br>";
-  //random function on right side of loop
-}
-
-
-console.log(characterLength);
-console.log(choiceArray);
 
 
 // Write password to the #password input
