@@ -6,18 +6,25 @@ var promptUppercase
 var promptNumbers
 var promptSpecialcharacters
 
-var characterLength = 
-var choiceArray = [];
-var lowercaseArray = "abcdefghijklmnopqrstuvwxyz";
-var upperCaseArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var specialCharactersArray = "!@><#,$%^&*(+|[]";
-var numberArray = "12334567890";
+
+var lowercaseArray = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var upperCaseArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+var specialCharactersArray = ["!", "%", "&", ",", "*", "+", "-", ".", "/", "<", ">", "?", "~"];
+var numberArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 characterLength = Number.NaN;
 var password = "";
 
+function shuffle(array){
+  var resultsArray = [];
+ for (let i = array.length - 1; i > 0; i--){
+   var randomIndex = Math.floor(Math.random() *  array.length)
+   resultsArray.push(array[randomIndex])
+ }
+return resultsArray
+}
 
 //Write password to the #password input 
-var password = generatePassword();
+//var password = generatePassword();
 var passwordText = document.querySelector("#password");
 
 passwordText.value = password;
@@ -25,92 +32,67 @@ passwordText.value = password;
 function generatePassword() {
   console.log("The button was clicked!")
 
-  getCharacterLength();
+  var characterLength = getCharacterLength();
   function getCharacterLength() {
     var choiceArray = [];
     var characterLength = prompt("How many characters long would you like your password to be? (8-128 characters");
-  
+
     console.log("character length prompt value: ", characterLength);
-  
+
     // reassign the value back to the same variable
     characterLength = parseInt(characterLength);
-  
+
     console.log("character length as integer: ", characterLength);
-  
+
     if (isNaN(characterLength)) {
       console.log("NaN");
     }
-  
+
     if (characterLength < 8) {
       console.log("less than 8");
     }
-  
+
     if (characterLength > 128) {
       console.log("greater than 128");
     }
-    return characterLength;
-  
+
+
+    console.log(characterLength);
+    var hasLowerCase = confirm("Would you like your password to include lowercase letters of the alphabet?")
+    if (hasLowerCase) {
+      choiceArray.push(...lowercaseArray);
+    }
+    var hasUpperCase = confirm("Would you like your password to include uppercase letters of the alphabet?")
+    if (hasUpperCase) {
+      choiceArray.push(...upperCaseArray);
+    }
+    var hasSpecialCharacters =confirm("Would you like your password to include special characters?")
+    if (hasSpecialCharacters) {
+      choiceArray.push(...specialCharactersArray);
+    }
+    var hasNumbers = ("Would you like your password to include numbers?")
+    if (hasNumbers){
+      choiceArray.push(...numberArray);
+    }
+    choiceArray = shuffle(choiceArray);
+    console.log(choiceArray);
+    var passwordResult = ""
+    for (var i = 0; i < characterLength; i++) {
+      const randomIndex = Math.floor(Math.random() * choiceArray.length);
+      console.log(choiceArray[randomIndex]); 
+      passwordResult += choiceArray[randomIndex];
+      //password += "The number is " + i + "<br>";
+      //random function on right side of loop
+    }
+  writePassword(passwordResult) 
+    //return the password 
   }
-  
-  if (confirm("Would you like your password to include lowercase letters of the alphabet?")) {
-    choiceArray.concat(lowercaseArray);
-  }
-  if (confirm("Would you like your password to include uppercase letters of the alphabet?")) {
-    choiceArray.concat(upperCaseArray);
-  }
-  if (confirm("Would you like your password to include special characters?")) {
-    choiceArray.concat(specialCharactersArray);
-  }
-  if (confirm("Would you like your password to include numbers?")) {
-    choiceArray.concat(numberArray);
-  
-  }
-  console.log(choiceArray);
-  for (let i = 0;8 <= i && i <= 128; i++) {
-    password  += "The number is " + i + "<br>";
-    //random function on right side of loop
-  }
-  
-  
-  console.log(characterLength);
-  console.log(choiceArray);
-
-
-
-
-  //prompt for password criteria:length (between 8 and 128 characters)
-  //var promptLength = window.prompt('How many characters would you like your password to include?');
-
-  //prompt for password criteria: lowercase
-  //var promptLowercase = window.prompt('Would you like your password to include lowercase letters of the alphabet?');
-
-  //prompt for password criteria:uppercase
-  //var promptUppercase = window.prompt('Would you like your password to include uppercase letters?');
-
-  //prompt for password criteria:numeric characters
-  //var promptNumbers = window.prompt('Would you like your password to include numerical characters?');
-
-  //prompt for password criteria:special characters
-  //var promptSpecialcharacters = window.prompt('Would you like your password to include special characters?');
-
-  //validate input from prompts
-
-
-  //generate password based on criteria
-
-
-
-  //display generated password on page
-  return "Generated password will go here."
-
 }
 
 
-
-
 // Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
+function writePassword(password) {
+  
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
@@ -118,4 +100,6 @@ function writePassword() {
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", generatePassword);
+
+
