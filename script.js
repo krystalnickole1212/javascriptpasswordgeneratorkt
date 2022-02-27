@@ -14,17 +14,16 @@ var numberArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 characterLength = Number.NaN;
 var password = "";
 
-function shuffle(array){
+function shuffle(array) {
   var resultsArray = [];
- for (let i = array.length - 1; i > 0; i--){
-   var randomIndex = Math.floor(Math.random() *  array.length)
-   resultsArray.push(array[randomIndex])
- }
-return resultsArray
+  for (let i = array.length - 1; i > 0; i--) {
+    var randomIndex = Math.floor(Math.random() * array.length)
+    resultsArray.push(array[randomIndex])
+  }
+  return resultsArray
 }
 
 //Write password to the #password input 
-//var password = generatePassword();
 var passwordText = document.querySelector("#password");
 
 passwordText.value = password;
@@ -66,12 +65,12 @@ function generatePassword() {
     if (hasUpperCase) {
       choiceArray.push(...upperCaseArray);
     }
-    var hasSpecialCharacters =confirm("Would you like your password to include special characters?")
+    var hasSpecialCharacters = confirm("Would you like your password to include special characters?")
     if (hasSpecialCharacters) {
       choiceArray.push(...specialCharactersArray);
     }
     var hasNumbers = ("Would you like your password to include numbers?")
-    if (hasNumbers){
+    if (hasNumbers) {
       choiceArray.push(...numberArray);
     }
     choiceArray = shuffle(choiceArray);
@@ -79,12 +78,10 @@ function generatePassword() {
     var passwordResult = ""
     for (var i = 0; i < characterLength; i++) {
       const randomIndex = Math.floor(Math.random() * choiceArray.length);
-      console.log(choiceArray[randomIndex]); 
+      console.log(choiceArray[randomIndex]);
       passwordResult += choiceArray[randomIndex];
-      //password += "The number is " + i + "<br>";
-      //random function on right side of loop
     }
-  writePassword(passwordResult) 
+    writePassword(passwordResult)
     //return the password 
   }
 }
@@ -92,7 +89,7 @@ function generatePassword() {
 
 // Write password to the #password input
 function writePassword(password) {
-  
+
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
